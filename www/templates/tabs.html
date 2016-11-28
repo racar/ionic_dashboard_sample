@@ -1,0 +1,40 @@
+<!--
+Create tabs with an icon and label, using the tabs-positive style.
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+<ion-tabs class="tabs-icon-top tabs-color-active-positive">
+
+  <!-- Dashboard Tab -->
+  <ion-tab title="Inicio" icon-off="ion-ios-home" icon-on="ion-ios-home" href="#/tab/dash">
+    <ion-nav-view name="tab-dash"></ion-nav-view>
+  </ion-tab>
+
+  <!-- presupuesto Tab -->
+  <ion-tab title="Presupuesto" icon-off="ion-ios-paper" icon-on="ion-ios-paper" href="#/tab/presupuesto">
+    <ion-nav-view name="tab-presupuesto"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Chats Tab -->
+  <ion-tab title="Contabilidad" icon-off="ion-ios-calculator" icon-on="ion-ios-calculator" href="#/tab/contabilidad">
+    <ion-nav-view name="tab-contabilidad"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Account Tab -->
+  <ion-tab title="Tesoreria" icon-off="ion-cash" icon-on="ion-cash" href="#/tab/tesoreria">
+    <ion-nav-view name="tab-tesoreria"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Account Tab -->
+  <ion-tab title="Adquisiciones" icon-off="ion-android-checkmark-circle" icon-on="ion-android-checkmark-circle" href="#/tab/adquisiciones">
+    <ion-nav-view name="tab-adquisiciones"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Account Tab -->
+  <ion-tab title="Recursos Humanos" icon-off="ion-ios-people" icon-on="ion-ios-people" href="#/tab/recursos">
+    <ion-nav-view name="tab-recursos"></ion-nav-view>
+  </ion-tab>
+
+
+
+</ion-tabs>
