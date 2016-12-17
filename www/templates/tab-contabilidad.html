@@ -1,5 +1,63 @@
 <ion-view view-title="Contabilidad">
-  <ion-content>
-    <h2>Contabilidad</h2>
+  <ion-content ng-controller="ContabilidadCtrl">
+    <div class="list">
+      <div class="item item-input-inset">
+            <label class="item-input-wrapper">
+              <i class="icon ion-ios-home placeholder-icon"></i> Empresa:
+            <input type="text" ng-model="empresa" placeholder = "Código Empresa"/>
+            </label>
+      </div>
+      <div class="item item-input-inset">
+            <label class="item-input-wrapper">
+              <i class="icon ion-calendar placeholder-icon"></i> Año Ejercicio:
+
+            <select ng-options="item as item for item in yearArray" ng-model="current" ng-change="changeInYear()"  ng-required="true">
+
+            </select>
+            </label>
+      </div>
+      <button class="button button-block button-positive" ng-click="consultar()">
+            Consultar
+      </button>
+      
+    </div>
+    <h6>
+    Tipo de Poliza:  <select ng-model="selectedName" ng-options="x for x in tipoPoliza" ng-change="updateG1(selectedName,selectedOrigen)">
+    </select>
+    Orígen:  <select ng-model="selectedOrigen" ng-options="x for x in tipoOrigen" ng-change="updateG1(selectedName,selectedOrigen)">
+    </select>
+  </h6>
+
+    <div class="item item-text-wrap">
+      <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series">
+      </canvas>
+    </div>
+    <font size="0.5">
+    <table st-table="rowCollection" class="table table-striped">
+      <thead>
+      <tr>
+        <th>Año</th>
+        <th>Tipo Poliza</th>
+        <th>Origen</th>
+        <th># Polizas</th>
+        <th>Asentadas</th>
+        <th>Canceladas</th>
+        <th>Registradas</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="row in rowCollection">
+        <td>{{row.EjercicioFiscalAnio}}</td>
+        <td>{{row.TipoPoliza}}</td>
+        <td>{{row.Origen}}</td>
+        <td>{{row.NumPolizas}}</td>
+        <td>{{row.Asentadas}}</td>
+        <td>{{row.Canceladas}}</td>
+        <td>{{row.Registradas}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </font>
+
   </ion-content>
 </ion-view>
