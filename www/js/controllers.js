@@ -61,7 +61,7 @@ angular.module('starter.controllers', [])
       console.error('ERR', err);
     });
 
-    $scope.$apply();
+
 
 
   }
@@ -98,7 +98,7 @@ $scope.updateG1 = function(poliza,origen){
    var empresa = $scope.empresa
    var rta
       $http.get("http://201.149.19.142:8081/ApiArco/api/ContabilidadTipoOrigen?param={EmpresaId:"+$scope.empresa+",EjercicioFiscalAnio:"+$scope.current+"}").success(function(resp){
-        console.log('Success', resp); // JSON object
+        //console.log('Success', resp); // JSON object
           rta = resp
           for(var i=0; i<resp.length; i++){
             var obj = resp[i];
@@ -135,42 +135,34 @@ $scope.updateG1 = function(poliza,origen){
 .controller('TesoreriaCtrl',function ($scope){})
 //***************************************************************************
 //*****************************ORDENES DE COMPRA*****************************
-.controller('AdquisicionesCtrl',function ($scope) {
-  var total_polizas_asentadas = 0,total_polizas_canceladas = 0,total_polizas_registradas = 0;
-  var empresa = $scope.empresa
-  var rta
-     $http.get("http://201.149.19.142:8081/ApiArco/api/OrdenCompra?param={EmpresaId:"+$scope.empresa+",AreaId:"+$scope.current+"}").success(function(resp){
-       console.log('Success', resp); // JSON object
-         rta = resp
-         for(var i=0; i<resp.length; i++){
-           var obj = resp[i];
-            total_polizas_asentadas += obj['Asentadas'];
-            total_polizas_registradas += obj['Registradas'];
-            total_polizas_canceladas += obj['Canceladas'];
+.controller('AdquisicionesCtrl',function ($scope,$http) {
+
+     $scope.consultar = function () {
+       var total_devengado = 0,total_ejercido = 0,total_pagado = 0;
+       $http.get("http://201.149.19.142:8081/ApiArco/api/OrdenCompra?param={EmpresaId:"+$scope.empresa+",AreaId:"+$scope.area+"}").success(function(resp){
+         console.log('Success', resp); // JSON object
+           rta = resp
+           for(var i=0; i<resp.length; i++){
+             var obj = resp[i];
+              total_devengado += obj['Devengado'];
+              total_ejercido += obj['Ejercido'];
+              total_pagado += obj['Pagado'];
 
 
-         }
-       $scope.labels = ['Asentadas','Canceladas','Registradas'];
+           }
+         $scope.labels = ['Devengado','Ejercido','Pagado'];
 
-       $scope.series = ['Pólizas'];
+         $scope.series = ['Ordenes'];
 
-       $scope.data = [[total_polizas_asentadas,total_polizas_registradas,total_polizas_canceladas]];
+         $scope.data = [[total_devengado,total_ejercido,total_pagado]];
 
-       $scope.tipoPoliza = ['Todas','Diario','Ingreso','Egreso'];
+         $scope.rowCollection = resp;
 
-       $scope.tipoOrigen = ['Todas','Automática','Manual'];
+       }).error(function(err,status){
+         console.error('ERR', err);
+       });
 
-       $scope.rowCollection = resp;
-
-       $scope.selectedName = 'Todas'
-
-       $scope.selectedOrigen = 'Todas'
-
-
-
-     }).error(function(err,status){
-       console.error('ERR', err);
-     });
+     }
 
 
 })

@@ -1,5 +1,52 @@
 <ion-view view-title="Adquisiciones">
-<ion-content>
-  <h2>Adquisiciones</h2>
+<ion-content ng-controller="AdquisicionesCtrl">
+  <div class="list">
+    <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            <i class="icon ion-ios-home placeholder-icon"></i> Empresa:
+          <input type="text" ng-model="empresa" placeholder = "Código Empresa"/>
+          </label>
+    </div>
+    <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            <i class="icon ion-calendar placeholder-icon"></i> Area:
+
+          <input type="text" ng-model="area" ng-change="changeArea()"  ng-required="true" placeholder="Área">
+
+        </input>
+          </label>
+    </div>
+    <button class="button button-block button-positive" ng-click="consultar()">
+          Consultar
+    </button>
+
+  </div>
+
+  <div class="item item-text-wrap">
+    <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series">
+    </canvas>
+  </div>
+
+  <font size="0.5">
+  <table st-table="rowCollection" class="table table-striped">
+    <thead>
+    <tr>
+      <th>Area</th>
+      <th>Devengado</th>
+      <th>Ejercido</th>
+      <th>Pagado</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="row in rowCollection">
+      <td>{{row.AreaId}}</td>
+      <td>{{row.Devengado}}</td>
+      <td>{{row.Ejercido}}</td>
+      <td>{{row.Pagado}}</td>
+    </tr>
+    </tbody>
+  </table>
+</font>
+
 </ion-content>
 </ion-view>
