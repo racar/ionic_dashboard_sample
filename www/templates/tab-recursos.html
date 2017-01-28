@@ -1,5 +1,58 @@
 <ion-view view-title="Recursos Humanos">
-  <ion-content>
-    <h2>Recursos Humanos</h2>
+  <ion-content ng-controller="RecursosCtrl">
+    <div class="list">
+      <div class="item item-input-inset">
+            <label class="item-input-wrapper">
+              <i class="icon ion-ios-home placeholder-icon"></i> Institución:
+              <select ng-options="item.EmpresaId as item.EmpresaNombre for item in empresas" ng-model="empresa" ng-change="changeEmpresa()">
+                  <option value="">Seleccione...</option>
+              </select>
+            </label>
+      </div>
+      <div class="item item-input-inset">
+            <label class="item-input-wrapper">
+              <i class="icon ion-calendar placeholder-icon"></i> Área:
+
+              <select ng-options="item.AreaId as item.AreaDescripcion for item in areas" ng-model="area">
+                  <option value="">Seleccione...</option>
+              </select>
+            </label>
+      </div>
+      <button class="button button-block button-positive" ng-click="consultar()">
+            Consultar
+      </button>
+
+    </div>
+
+    <div class="item item-text-wrap">
+      <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-colors="colorbar">
+      </canvas>
+    </div>
+
+    <font size="0.5">
+    <div style="overflow-x:auto;"> 
+    <table st-table="rowCollection">
+      <thead>
+      <tr>
+        <th>Área</th>
+        <th>Autorizadas</th>
+        <th>Ocupadas</th>
+        <th>Disponibles</th>
+        <th>Costo</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="row in rowCollection">
+        <td>{{row.AreaDescripcion}}</td>
+        <td>{{row.PosicionesAutorizadas}}</td>
+        <td>{{row.PosicionesOcupadas}}</td>
+        <td>{{row.PosicionesDisponibles}}</td>
+        <td>{{row.Costo}}
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  </font>
+
   </ion-content>
 </ion-view>

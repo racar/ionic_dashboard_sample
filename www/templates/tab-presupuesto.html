@@ -1,6 +1,138 @@
 <ion-view view-title="Presupuesto">
-  <ion-content class="padding">
-      <h2>Presupuesto</h2>
+  <ion-content ng-controller="PresupuestoCtrl">
+      <div class="list">
+        <div class="item item-input-inset font-size-small">
+              <label class="item-input-wrapper">
+                <i class="icon ion-ios-home placeholder-icon"></i> Institución:
+
+            <select ng-options="item.EmpresaId as item.EmpresaNombre for item in empresas" ng-model="empresa" ng-change="changeEmpresa()">
+                <option value="">Seleccione...</option>
+            </select>
+              </label>
+        </div>
+        <div class="item item-input-inset">
+              <label class="item-input-wrapper">
+                <i class="icon ion-calendar placeholder-icon"></i> Año Ejercicio:
+
+              <select ng-options="item as item for item in yearArray" ng-model="current" ng-change="changeInYear()"  ng-required="true">
+
+              </select>
+              </label>
+        </div>
+        <div class="item item-input-inset">
+              <label class="item-input-wrapper">
+                <i class="icon ion-calendar placeholder-icon"></i> Mes Inicio:
+
+              <select ng-options="item.MesId as item.MesNombre for item in meses" ng-model="mesinicio" >
+                  <option value="">Seleccione...</option>
+              </select>
+              </label>
+        </div>
+        <div class="item item-input-inset">
+              <label class="item-input-wrapper">
+                <i class="icon ion-calendar placeholder-icon"></i> Mes Fin:
+
+              <select ng-options="item.MesId as item.MesNombre for item in meses" ng-model="mesfin" >
+                  <option value="">Seleccione...</option>
+              </select>
+              </label>
+        </div>
+        <div class="item item-input-inset">
+              <label class="item-input-wrapper">
+                <i class="icon ion-calendar placeholder-icon"></i> Área:
+
+                <select ng-options="item.AreaId as item.AreaDescripcion for item in areas" ng-model="areaid">
+                <option value="">Seleccione...</option>
+                </select>
+              </label>
+        </div>
+        <div class="item item-input-inset">
+              <label class="item-input-wrapper">
+                <i class="icon ion-calendar placeholder-icon"></i> Capítulo:
+
+                <select ng-options="item.CapituloId as item.CapituloNombre for item in capitulos" ng-model="capituloid" ng-change="changeCapitulo()">
+                <option value="">Seleccione...</option>
+                </select>
+              </label>
+        </div>
+        <div class="item item-input-inset">
+              <label class="item-input-wrapper">
+                <i class="icon ion-calendar placeholder-icon"></i> Concepto:
+
+
+                <select ng-options="item.ConceptoId as item.ConceptoNombre for item in conceptos" ng-model="conceptoid" ng-change="changeConcepto()">
+                <option value="">Seleccione...</option>
+                </select>
+              </label>
+        </div>
+        <div class="item item-input-inset">
+              <label class="item-input-wrapper">
+                <i class="icon ion-calendar placeholder-icon"></i> Partida:
+
+                <select ng-options="item.PartidaId as item.PartidaNombre for item in partidas" ng-model="partidaid">
+                <option value="">Seleccione...</option>
+                </select>
+              </label>
+        </div>
+        <div class="item item-input-inset">
+              <label class="item-input-wrapper">
+                <i class="icon ion-calendar placeholder-icon"></i> Número de elementos:
+
+                <input type="text" ng-model="numero" ></input>
+              </label>
+        </div>
+        <div class="item item-input-inset">
+              <label class="item-input-wrapper">
+                <i class="icon ion-calendar placeholder-icon"></i> Clasificación:
+
+                <select ng-options="item.OrdenId as item.OrdenNombre for item in ordenes" ng-model="orden">
+                <option value="">Seleccione...</option>
+                </select>
+              </label>
+        </div>
+
+
+        <button class="button button-block button-positive" ng-click="consultar()">
+              Consultar
+        </button>
+
+      </div>
+      <div class="item item-text-wrap">
+        <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-colors="ColorBar" style="height:200px;">
+        </canvas>
+      </div>
+
+      <font size="0.2">
+      <div style="overflow-x:auto;">
+      <table st-table="rowCollection" class="table table-striped">
+        <thead>
+        <tr>
+          <th>Partida</th>
+          <th>Autorizado</th>
+          <th>Modificado</th>
+          <th>PorEjercer</th>
+          <th>Comprometido</th>
+          <th>Devengado</th>
+          <th>Ejercido</th>
+          <th>Pagado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in rowCollection">
+          <td>{{row.PartidaId}}</td>
+          <td>{{row.Autorizado}}</td>
+          <td>{{row.Modificado}}</td>
+          <td>{{row.PorEjercer}}</td>
+          <td>{{row.Comprometido}}</td>
+          <td>{{row.Devengado}}</td>
+          <td>{{row.Ejercido}}</td>
+          <td>{{row.Pagado}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+      </font>
+
 
   </ion-content>
 

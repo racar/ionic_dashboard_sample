@@ -1,10 +1,15 @@
 <ion-view view-title="Contabilidad">
+
   <ion-content ng-controller="ContabilidadCtrl">
+<h6>
     <div class="list">
-      <div class="item item-input-inset">
+      <div class="item item-input-inset font-size-small">
             <label class="item-input-wrapper">
-              <i class="icon ion-ios-home placeholder-icon"></i> Empresa:
-            <input type="text" ng-model="empresa" placeholder = "Código Empresa"/>
+              <i class="icon ion-ios-home placeholder-icon"></i> Institución:
+
+          <select ng-options="item.EmpresaId as item.EmpresaNombre for item in empresas" ng-model="empresa">
+              <option value="">Seleccione...</option>
+          </select>
             </label>
       </div>
       <div class="item item-input-inset">
@@ -19,27 +24,29 @@
       <button class="button button-block button-positive" ng-click="consultar()">
             Consultar
       </button>
-      
+
     </div>
+  </h6>
     <h6>
-    Tipo de Poliza:  <select ng-model="selectedName" ng-options="x for x in tipoPoliza" ng-change="updateG1(selectedName,selectedOrigen)">
+    Tipo de Póliza:  <select ng-model="selectedName" ng-options="x for x in tipoPoliza" ng-change="updateG1(selectedName,selectedOrigen)">
     </select>
     Orígen:  <select ng-model="selectedOrigen" ng-options="x for x in tipoOrigen" ng-change="updateG1(selectedName,selectedOrigen)">
     </select>
   </h6>
 
     <div class="item item-text-wrap">
-      <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series">
+      <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-colors="ColorBar">
       </canvas>
     </div>
     <font size="0.5">
+    <div style="overflow-x:auto;">
     <table st-table="rowCollection" class="table table-striped">
       <thead>
       <tr>
         <th>Año</th>
-        <th>Tipo Poliza</th>
+        <th>Tipo Póliza</th>
         <th>Origen</th>
-        <th># Polizas</th>
+        <th># Pólizas</th>
         <th>Asentadas</th>
         <th>Canceladas</th>
         <th>Registradas</th>
@@ -57,6 +64,7 @@
       </tr>
       </tbody>
     </table>
+  </div>
   </font>
 
   </ion-content>
