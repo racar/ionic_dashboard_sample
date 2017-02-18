@@ -51,7 +51,7 @@
                 <i class="icon ion-calendar placeholder-icon"></i> Capítulo:
 
                 <select ng-options="item.CapituloId as item.CapituloNombre for item in capitulos" ng-model="capituloid" ng-change="changeCapitulo()">
-                <option value="">Seleccione...</option>
+                <option value="0" >Seleccione...</option>
                 </select>
               </label>
         </div>
@@ -78,7 +78,7 @@
               <label class="item-input-wrapper">
                 <i class="icon ion-calendar placeholder-icon"></i> Número de elementos:
 
-                <input type="text" ng-model="numero" ></input>
+                <input type="text" ng-model="numero" >
               </label>
         </div>
         <div class="item item-input-inset">
@@ -108,25 +108,25 @@
         <thead>
         <tr>
           <th>Partida</th>
-          <th>Autorizado</th>
-          <th>Modificado</th>
-          <th>PorEjercer</th>
-          <th>Comprometido</th>
-          <th>Devengado</th>
-          <th>Ejercido</th>
-          <th>Pagado</th>
+          <th ng-hide="orden=='Modificado' || orden=='PorEjercer' || orden=='Comprometido' || orden=='Devengado' || orden=='Ejercido' || orden=='Pagado'">Autorizado</th>
+          <th ng-hide="orden=='Autorizado' || orden=='PorEjercer' || orden=='Comprometido' || orden=='Devengado' || orden=='Ejercido' || orden=='Pagado'">Modificado</th>
+          <th ng-hide="orden=='Autorizado' || orden=='Modificado' || orden=='Comprometido' || orden=='Devengado' || orden=='Ejercido' || orden=='Pagado'">PorEjercer</th>
+          <th ng-hide="orden=='Autorizado' || orden=='Modificado' || orden=='PorEjercer' || orden=='Devengado' || orden=='Ejercido' || orden=='Pagado'">Comprometido</th>
+          <th ng-hide="orden=='Autorizado' || orden=='Modificado' || orden=='PorEjercer' || orden=='Comprometido' || orden=='Ejercido' || orden=='Pagado'">Devengado</th>
+          <th ng-hide="orden=='Autorizado' || orden=='Modificado' || orden=='PorEjercer' || orden=='Comprometido' || orden=='Devengado' || orden=='Pagado'">Ejercido</th>
+          <th ng-hide="orden=='Autorizado' || orden=='Modificado' || orden=='PorEjercer' || orden=='Comprometido' || orden=='Devengado' || orden=='Ejercido'">Pagado</th>
         </tr>
         </thead>
         <tbody>
         <tr ng-repeat="row in rowCollection">
           <td>{{row.PartidaId}}</td>
-          <td>{{row.Autorizado}}</td>
-          <td>{{row.Modificado}}</td>
-          <td>{{row.PorEjercer}}</td>
-          <td>{{row.Comprometido}}</td>
-          <td>{{row.Devengado}}</td>
-          <td>{{row.Ejercido}}</td>
-          <td>{{row.Pagado}}</td>
+          <td ng-hide="orden=='Modificado' || orden=='PorEjercer' || orden=='Comprometido' || orden=='Devengado' || orden=='Ejercido' || orden=='Pagado'">{{row.Autorizado}}</td>
+          <td ng-hide="orden!='Autorizado' || orden!='PorEjercer' || orden=='Comprometido' || orden=='Devengado' || orden=='Ejercido' || orden=='Pagado'">{{row.Modificado}}</td>
+          <td ng-hide="orden=='Autorizado' || orden=='Modificado' || orden=='Comprometido' || orden=='Devengado' || orden=='Ejercido' || orden=='Pagado'">{{row.PorEjercer}}</td>
+          <td ng-hide="orden=='Autorizado' || orden=='Modificado' || orden=='PorEjercer' || orden=='Devengado' || orden=='Ejercido' || orden=='Pagado'">{{row.Comprometido}}</td>
+          <td ng-hide="orden=='Autorizado' || orden=='Modificado' || orden=='PorEjercer' || orden=='Comprometido' || orden=='Ejercido' || orden=='Pagado'">{{row.Devengado}}</td>
+          <td ng-hide="orden=='Autorizado' || orden=='Modificado' || orden=='PorEjercer' || orden=='Comprometido' || orden=='Devengado' || orden=='Pagado'">{{row.Ejercido}}</td>
+          <td ng-hide="orden=='Autorizado' || orden=='Modificado' || orden=='PorEjercer' || orden=='Comprometido' || orden=='Devengado' || orden=='Ejercido'">{{row.Pagado}}</td>
         </tr>
         </tbody>
       </table>

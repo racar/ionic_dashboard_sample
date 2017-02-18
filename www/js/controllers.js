@@ -71,7 +71,13 @@ $http.get("http://201.149.19.142:8081/ApiArco/api/Empresa").success(function(res
 
       $http.get("http://201.149.19.142:8081/ApiArco/api/Concepto?param={CapituloId:"+$scope.capituloid+"}").success(function(resp){
         console.log('Success', resp); // JSON object
-       $scope.conceptos = resp;
+        var data = resp;
+        for (var j=0; j < data.length; j++) {
+          var featureName=data[j].ConceptoId;
+          data[j].ConceptoNombre = data[j].ConceptoId + '-' + data[j].ConceptoNombre;
+          }
+
+       $scope.conceptos = data;
 
       }).error(function(err,status){
         console.error('ERR', err);
@@ -105,7 +111,15 @@ $http.get("http://201.149.19.142:8081/ApiArco/api/Empresa").success(function(res
       var total_autorizado = 0,total_modificado = 0,total_porejercer =0,
       total_comprometido = 0,total_devengado = 0,total_ejercido = 0,
       total_pagado = 0;
-
+      if ($scope.capituloid === undefined){
+          $scope.capituloid = 0;
+      }
+      if ($scope.conceptoid === undefined){
+          $scope.conceptoid = 0;
+      }
+      if ($scope.partidaid === undefined){
+          $scope.partidaid = 0;
+      }
 //http://201.149.19.142:8081/ApiArco/api/Presupuesto?param={EmpresaId:1,EjercicioFiscalAnio:2016,MesInicio:1,MesFin:12,AreaId:1,CapituloId:0,ConceptoId:0,PartidaId:0,Numero:0,Orden:0}
 //http://201.149.19.142:8081/ApiArco/api/Presupuesto?param={"EmpresaId":1,"EjercicioFiscalAnio":2016,"MesInicio":1,"MesFin":12,"AreaId":1001,"CapituloId":0,"ConceptoId":0,"PartidaId":0,"Numero":"1","Orden":"Ejercido"}
       $http.get("http://201.149.19.142:8081/ApiArco/api/Presupuesto?param={EmpresaId:"+$scope.empresa+",EjercicioFiscalAnio:"+$scope.current+",MesInicio:"+$scope.mesinicio+",MesFin:"+$scope.mesfin+",AreaId:"+$scope.areaid+",CapituloId:"+$scope.capituloid+",ConceptoId:"+$scope.conceptoid+",PartidaId:"+$scope.partidaid+",Numero:"+$scope.numero+",Orden:'"+$scope.orden+"'}").success(function(resp){
@@ -126,13 +140,38 @@ $http.get("http://201.149.19.142:8081/ApiArco/api/Empresa").success(function(res
 
         $scope.labels = ['Presupuesto']; //['1','2','3','4','5'];
 
-        $scope.series = [['Autorizado'],['Modificado'],['Por Ejercer'],['Comprometido'],['Devengado'],['Ejercido'],['Pagado']];
 
-        $scope.data = [
-          //['5','5','5','5','5'],['7','7','7','7','7'],['8','8','8','8','8']
-          [total_autorizado],[total_modificado],[total_porejercer],[total_comprometido],[total_devengado],[total_ejercido],[total_pagado]
-        ];
+        if($scope.orden == 'Autorizado'){
+            $scope.series = [['Autorizado']];
+            $scope.data = [[total_autorizado]];
+        }else if($scope.orden == 'Modificado'){
+          $scope.series = [['Modificado']];
+          $scope.data = [[total_modificado]];
+        }else if($scope.orden == 'PorEjercer'){
+          $scope.series = [['PorEjercer']];
+          $scope.data = [[total_porejercer]];
+        }else if($scope.orden == 'Comprometido'){
+          $scope.series = [['Comprometido']];
+          $scope.data = [[total_comprometido]];
+        }else if($scope.orden == 'Devengado'){
+          $scope.series = [['Devengado']];
+          $scope.data = [[total_devengado]];
+        }else if($scope.orden == 'Ejercido'){
+          $scope.series = [['Ejercido']];
+          $scope.data = [[total_ejercido]];
+        }else if($scope.orden == 'Pagado'){
+          $scope.series = [['Pagado']];
+          $scope.data = [[total_pagado]];
+        }
+        else{
+            $scope.series = [
+              ['Autorizado'],['Modificado'],['Por Ejercer'],['Comprometido'],['Devengado'],['Ejercido'],['Pagado']];
 
+            $scope.data = [
+
+              [total_autorizado],[total_modificado],[total_porejercer],[total_comprometido],[total_devengado],[total_ejercido],[total_pagado]
+            ];
+        }
         $scope.ColorBar = ['#009933', '#FF6600','#990000'];
 
         $scope.options = {
