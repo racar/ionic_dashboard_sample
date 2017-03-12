@@ -44,9 +44,9 @@
     <tbody>
     <tr ng-repeat="row in rowCollection">
       <td>{{row.AreaId}}</td>
-      <td>{{row.Devengado}}</td>
-      <td>{{row.Ejercido}}</td>
-      <td>{{row.Pagado}}</td>
+      <td>{{row.Devengado | currency}}</td>
+      <td>{{row.Ejercido | currency}}</td>
+      <td>{{row.Pagado | currency}}</td>
     </tr>
     </tbody>
   </table>

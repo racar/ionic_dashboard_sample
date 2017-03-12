@@ -61,7 +61,12 @@ $http.get("http://201.149.19.142:8081/ApiArco/api/Empresa").success(function(res
 
     $http.get("http://201.149.19.142:8081/ApiArco/api/Capitulo").success(function(resp){
       console.log('Success', resp); // JSON object
-     $scope.capitulos = resp;
+      var data = resp;
+      for (var j=0; j < data.length; j++) {
+        var featureName=data[j].CapituloId;
+        data[j].CapituloNombre = data[j].CapituloId + '-' + data[j].CapituloNombre;
+        }
+     $scope.capitulos = data;
 
     }).error(function(err,status){
       console.error('ERR', err);
@@ -89,7 +94,12 @@ $http.get("http://201.149.19.142:8081/ApiArco/api/Empresa").success(function(res
 
       $http.get("http://201.149.19.142:8081/ApiArco/api/Partida?param={ConceptoId:"+$scope.conceptoid+"}").success(function(resp){
         console.log('Success', resp); // JSON object
-       $scope.partidas = resp;
+        var data = resp;
+        for (var j=0; j < data.length; j++) {
+          var featureName=data[j].PartidaId;
+          data[j].PartidaNombre = data[j].PartidaId + '-' + data[j].PartidaNombre;
+          }
+       $scope.partidas = data;
 
       }).error(function(err,status){
         console.error('ERR', err);
@@ -98,7 +108,7 @@ $http.get("http://201.149.19.142:8081/ApiArco/api/Empresa").success(function(res
     }
 
     $scope.ordenes = [
-      {"OrdenId":"Autorizado","OrdenNombre":"Autorizado"},
+      {"OrdenId":'Autorizado',"OrdenNombre":"Autorizado"},
       {"OrdenId":"Modificado","OrdenNombre":"Modificado"},
       {"OrdenId":"PorEjercer","OrdenNombre":"PorEjercer"},
       {"OrdenId":"Comprometido","OrdenNombre":"Comprometido"},
@@ -117,12 +127,19 @@ $http.get("http://201.149.19.142:8081/ApiArco/api/Empresa").success(function(res
       if ($scope.conceptoid === undefined){
           $scope.conceptoid = 0;
       }
-      if ($scope.partidaid === undefined){
+      if ($scope.partidaid === undefined){;
           $scope.partidaid = 0;
+      }
+      if ($scope.numero === undefined){
+          $scope.numero = '';
+      }
+      if ($scope.orden === undefined){
+        $scope.orden = '';
       }
 //http://201.149.19.142:8081/ApiArco/api/Presupuesto?param={EmpresaId:1,EjercicioFiscalAnio:2016,MesInicio:1,MesFin:12,AreaId:1,CapituloId:0,ConceptoId:0,PartidaId:0,Numero:0,Orden:0}
 //http://201.149.19.142:8081/ApiArco/api/Presupuesto?param={"EmpresaId":1,"EjercicioFiscalAnio":2016,"MesInicio":1,"MesFin":12,"AreaId":1001,"CapituloId":0,"ConceptoId":0,"PartidaId":0,"Numero":"1","Orden":"Ejercido"}
-      $http.get("http://201.149.19.142:8081/ApiArco/api/Presupuesto?param={EmpresaId:"+$scope.empresa+",EjercicioFiscalAnio:"+$scope.current+",MesInicio:"+$scope.mesinicio+",MesFin:"+$scope.mesfin+",AreaId:"+$scope.areaid+",CapituloId:"+$scope.capituloid+",ConceptoId:"+$scope.conceptoid+",PartidaId:"+$scope.partidaid+",Numero:"+$scope.numero+",Orden:'"+$scope.orden+"'}").success(function(resp){
+      var url = "EmpresaId:"+$scope.empresa+",EjercicioFiscalAnio:"+$scope.current+",MesInicio:"+$scope.mesinicio+",MesFin:"+$scope.mesfin+",AreaId:"+$scope.areaid+",CapituloId:"+$scope.capituloid+",ConceptoId:"+$scope.conceptoid+",PartidaId:"+$scope.partidaid+",Numero:'"+$scope.numero+"',Orden:'"+$scope.orden;
+      $http.get("http://201.149.19.142:8081/ApiArco/api/Presupuesto?param={"+encodeURI(url)+"'}").success(function(resp){
         console.log('Success', resp); // JSON object
 
           for(var i=0; i<resp.length; i++){

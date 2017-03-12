@@ -30,7 +30,7 @@
     </div>
 
     <font size="0.5">
-    <div style="overflow-x:auto;"> 
+    <div style="overflow-x:auto;">
     <table st-table="rowCollection">
       <thead>
       <tr>
@@ -47,7 +47,7 @@
         <td>{{row.PosicionesAutorizadas}}</td>
         <td>{{row.PosicionesOcupadas}}</td>
         <td>{{row.PosicionesDisponibles}}</td>
-        <td>{{row.Costo}}
+        <td>{{row.Costo | currency}}
       </tr>
       </tbody>
     </table>
