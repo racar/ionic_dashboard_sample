@@ -192,9 +192,22 @@ $http.get("http://201.149.19.142:8081/ApiArco/api/Empresa").success(function(res
         $scope.ColorBar = ['#009933', '#FF6600','#990000'];
 
         $scope.options = {
-          legend: { display: true,labels:{fontSize:7}
 
-                  },
+          legend: {
+            position: "bottom",display: true,labels:{fontSize:7}
+
+          },
+          tooltips: {
+                mode: 'nearest',
+                bodySpacing: 10,
+                cornerRadius: 0,
+                titleMarginBottom: 15,
+                callbacks: {
+                    label: function(tooltipItems, data) {
+                        return '$' + tooltipItems.yLabel.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                    }
+                }
+          },
           responsive: true,  // set to false to remove responsiveness. Default responsive value is true.
           scales: {
               yAxes: [
@@ -421,6 +434,17 @@ $scope.updateG1 = function(poliza,origen){
 
       $scope.options = {
         legend: { display: true },
+        tooltips: {
+
+              bodySpacing: 10,
+              cornerRadius: 0,
+              titleMarginBottom: 15,
+              callbacks: {
+                  label: function(tooltipItems, data) {
+                      return '$' + tooltipItems.yLabel.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                  }
+              }
+        },
         responsive: true,  // set to false to remove responsiveness. Default responsive value is true.
         scales: {
             yAxes: [
@@ -502,6 +526,17 @@ $scope.updateG1 = function(poliza,origen){
      $scope.options = {
        legend: { display: true },
        responsive: true,  // set to false to remove responsiveness. Default responsive value is true.
+       tooltips: {
+
+             bodySpacing: 10,
+             cornerRadius: 0,
+             titleMarginBottom: 15,
+             callbacks: {
+                 label: function(tooltipItems, data) {
+                     return '$' + tooltipItems.yLabel.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                 }
+             }
+       },
        scales: {
            yAxes: [
                {
@@ -606,27 +641,8 @@ $scope.updateG1 = function(poliza,origen){
   }
 
 })
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
-})
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
 .controller('AccountCtrl', function($scope) {
   $scope.settings = {
-    enableFriends: true
+
   };
 });

@@ -35,7 +35,7 @@
       <tbody>
       <tr ng-repeat="row in rowCollection">
         <td>{{row.nombre}}</td>
-        <td>{{row.Importe}}</td>
+        <td>{{row.Importe | currency}}</td>
         <td>{{row.TotalFacturas}}</td>
         <td>{{row.ImporteMinimo | currency}}</td>
         <td>{{row.ImporteMaximo | currency}}</td>
